@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta charset="UTF-8">
+  <title>hack</title>
+ <center><h1>DamanGames Script</h1></center>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<style>
+body,
+.coin,
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #333;
+}
+
+.container {
+  margin: 5em auto;
+}
+
+.coin {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.heads,
+.tails {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backface-visibility: hidden;
+}
+
+.heads {
+  width: 200px;
+  height: 200px;
+  background: #2ab7ca;
+}
+
+.tails {
+  width: 200px;
+  height: 200px;
+  background: #fe4a49;
+  transform: rotateX(180deg);
+}
+
+.inside-heads,
+.inside-tails {
+  font-family: monospace;
+  font-size: 2.5rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+}
+
+.flip-btn {
+  width: 125px;
+  height: 40px;
+  background: #ffbf00;
+  color: #333;
+  border: 0;
+  font-size: 1em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.flip-btn:disabled {
+  background: #e83f6f;
+}
+
+.flip-btn:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: transform .25s ease-in-out;
+}
+
+@keyframes flip-tails {
+  0% {
+    transform: rotateX(0);
+  } 100% {
+    transform: rotateX(900deg);
+  }
+}
+
+@keyframes flip-heads {
+  0% {
+    transform: rotateX(0);
+  } 100% {
+    transform: rotateX(1080deg);
+  }
+}
+</style>
+<div class="container">
+  
+  <div class="coin">
+    <div class="heads">
+      <p class="inside-heads">BIG</p>
+    </div>
+
+    <div class="tails">
+      <p class="inside-tails">SMALL</p>
+    </div>
+  </div>
+
+  <div class="btn-container">
+  <button class="flip-btn">Predict</button>
+  </div>
+  
+</div>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+<script>
+let heads = 0;
+let tails = 0;
+let coin = document.querySelector(".coin");
+let flipBtn = document.querySelector(".flip-btn");
+
+flipBtn.addEventListener("click", () => {
+  let randomFlip = Math.floor(Math.random()*2);
+  coin.style.animation = 0;
+  if (randomFlip) {
+    setTimeout( () => {
+    coin.style.animation = "flip-tails 2s forwards"
+  }, 200)
+  heads++
+  } else {
+    setTimeout( () => {
+      coin.style.animation = "flip-heads 2s forwards"
+    }, 200)
+    tails++
+  }
+  disableBtn()
+})
+
+function disableBtn() {
+  flipBtn.disabled = true
+  setTimeout( () => {
+    flipBtn.disabled = false
+  }, 2000)
+}
+</script>
+</body>
+</html>
